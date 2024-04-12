@@ -12,8 +12,8 @@ if ! command -v screen &> /dev/null; then
     sudo apt-get install -y screen
 fi
 
-echo "请输入您的设备ID："
-read device_id
+# 提示用户输入设备ID，并等待用户输入
+read -p "请输入您的设备ID：" device_id
 
 echo "正在下载 PINGPONG..."
 wget -O PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/v0.1.5/PINGPONG
