@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if ! command -v docker &> /dev/null; then
+    echo "正在安装 Docker..."
+    sudo apt-get update
+    sudo apt-get install -y docker.io
+fi
+
+if ! command -v screen &> /dev/null; then
+    echo "正在安装 Screen..."
+    sudo apt-get update
+    sudo apt-get install -y screen
+fi
+
+echo "请输入您的设备ID："
+read device_id
+
+echo "正在下载 PINGPONG..."
+wget -O PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/v0.1.5/PINGPONG
+
+echo "正在运行 PINGPONG..."
+chmod +x ./PINGPONG
+screen -dmS pingpong_session ./PINGPONG --key $device_id
+
+echo ""
+echo "PINGPONG 已经在后台运行。要查看运行情况，请执行以下命令："
+echo "screen -r pingpong_session"
+echo "按下 Ctrl+A 然后按下 D 键可以退出 Screen 会话，但不会停止 PINGPONG 的运行。"
