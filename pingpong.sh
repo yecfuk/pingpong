@@ -16,7 +16,7 @@ fi
 
 # 下载 PINGPONG
 echo "正在下载 PINGPONG..."
-wget -O PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/v0.1.7/PINGPONG
+wget -O PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/latest/PINGPONG
 
 # 提示用户输入设备ID，并等待用户输入
 read -p "请输入您的设备ID：" device_id
