@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # 检查是否已安装 Docker
-# 检查是否已安装 Docker
 if ! command -v docker &> /dev/null; then
     echo "正在安装 Docker..."
     # 更新 apt 软件包索引
@@ -26,13 +25,21 @@ fi
 echo "正在下载 PINGPONG..."
 wget -O PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/latest/PINGPONG
 
-# 提示用户输入设备ID，并等待用户输入
+# 提示用户输入设备ID，并验证输入
 read -p "请输入您的设备ID：" device_id
+if [[ -z "$device_id" ]]; then
+    echo "错误：设备ID不能为空"
+    exit 1
+fi
 
-# 创建一个名为pingpong_session的screen会话，并在其中执行启动指令
+# 增加一些提示信息
+echo "正在启动 PINGPONG..."
+
+# 创建一个名为 pingpong_session 的 screen 会话，并在其中执行启动指令
 screen -dmS pingpong_session bash -c "chmod +x ./PINGPONG && ./PINGPONG --key $device_id"
+if [ $? -ne 0 ]; then
+    echo "错误：启动 PINGPONG 失败"
+    exit 1
+fi
 
-echo ""
-echo "PINGPONG 已经在后台运行。要查看运行情况，请执行以下命令："
-echo "screen -r pingpong_session"
-echo "按下 Ctrl+A 然后按下 D 键可以退出 Screen 会话，但不会停止 PINGPONG 的运行。"
+echo "PINGPONG 已经在后台运行，请使用 'screen -r pingpong_session' 查看运行情况。"
