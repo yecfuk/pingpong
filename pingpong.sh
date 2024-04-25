@@ -36,7 +36,7 @@ fi
 echo "正在启动 PINGPONG..."
 
 # 创建一个名为 pingpong_session 的 screen 会话，并在其中执行启动指令
-screen -dmS pingpong_session bash -c "chmod +x ./PINGPONG && ./PINGPONG --key $device_id"
+screen -dmS pingpong_session bash -c "chmod +x ./PINGPONG && ./PINGPONG --key your_device_id"
 if [ $? -ne 0 ]; then
     echo "错误：启动 PINGPONG 失败"
     exit 1
