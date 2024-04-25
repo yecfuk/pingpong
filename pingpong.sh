@@ -1,11 +1,19 @@
 #!/bin/bash
 
 # 检查是否已安装 Docker
+# 检查是否已安装 Docker
 if ! command -v docker &> /dev/null; then
     echo "正在安装 Docker..."
+    # 更新 apt 软件包索引
     sudo apt-get update
-    sudo apt-get install -y docker.io
+    # 下载 Docker 安装脚本
+    curl -fsSL https://get.docker.com -o get-docker.sh
+    # 执行 Docker 安装脚本
+    sudo sh get-docker.sh
+else
+    echo "Docker 已经安装"
 fi
+
 
 # 检查是否已安装 Screen
 if ! command -v screen &> /dev/null; then
